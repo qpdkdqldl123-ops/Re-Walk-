@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Re-Walk: 전대 상권 활성화 설문조사</title>
+    <style>
+        /* 모바일 최적화 및 기본 스타일 */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif; }
+        body { background-color: #f5f7fa; color: #333; line-height: 1.6; padding-bottom: 30px; }
+        
+        /* 페이지 구조 */
+        .page { display: none; max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+        .page.active { display: block; }
+        
+        /* 헤더 & 타이틀 */
+        .header-title { font-size: 20px; font-weight: 700; color: #111; text-align: center; margin: 15px 0 25px 0; padding-bottom: 10px; border-bottom: 2px solid #222; }
+        
+        /* 이미지 기본 세팅 (깨짐 방지 및 반응형) */
+        img { width: 100%; height: auto; display: block; border-radius: 8px; object-fit: cover; }
+        .img-container { margin-bottom: 20px; position: relative; }
+        
+        /* 추가된 질문 문구 스타일 */
+        .quiz-text { font-size: 16px; font-weight: 600; color: #222; text-align: center; margin-top: 12px; margin-bottom: 10px; }
+
+        /* 슬라이드(캐러셀) 스타일 */
+        .slider-wrapper { background: #fafafa; border: 1px solid #e1e4e8; border-radius: 12px; padding: 10px; margin-bottom: 20px; }
+        .slider-title { font-size: 14px; font-weight: bold; color: #666; margin-bottom: 8px; padding-left: 5px; }
+        .slider-container { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 200px; }
+        .slide-img { display: none; width: 100%; max-height: 250px; border-radius: 6px; }
+        .slide-img.active { display: block; }
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; -webkit-tap-highlight-color: transparent; }
+        .nav-btn:active { background: rgba(0,0,0,0.8); }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        /* 2페이지 설문 조사 스타일 */
+        .question-box { margin-bottom: 25px; background: #fff; }
+        .question-title { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #222; word-break: keep-all; }
+        .option-list { list-style: none; }
+        .option-item { margin-bottom: 10px; }
+        .option-item input[type="radio"] { display: none; }
+        .option-label { display: block; padding: 14px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; font-size: 14px; cursor: pointer; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
+        /* 체크되었을 때 스타일 변경 */
+        .option-item input[type="radio"]:checked + .option-label { background: #e8f2ff; border-color: #3b82f6; color: #1d4ed8; font-weight: 600; }
+        
+        /* 텍스트 입력창 */
+        .text-input, .textarea-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; margin-top: 8px; outline: none; }
+        .textarea-input { height: 80px; resize: none; }
+        .text-input:focus, .textarea-input:focus { border-color: #3b82f6; }
+
+        /* 3페이지 보고서 영역 (반응형 레이아웃) */
+        .report-section { display: flex; gap: 15px; align-items: center; margin-bottom: 25px; background: #f8f9fa; padding: 12px; border-radius: 8px; }
+        .report-img-box { flex: 1; }
+        .report-text-box { flex: 1.2; font-size: 13px; font-weight: 600; color: #333; line-height: 1.5; word-break: keep-all; }
+        .highlight { color: #d97706; font-weight: 700; }
+        .qr-box { width: 180px; margin: 0 auto 20px auto; }
+
+        /* 하단 고정/이동 버튼 */
+        .btn-container { margin-top: 30px; display: flex; gap: 10px; }
+        .action-btn { flex: 1; background: #222; color: #fff; border: none; padding: 15px; font-size: 15px; font-weight: 600; border-radius: 8px; cursor: pointer; text-align: center; -webkit-tap-highlight-color: transparent; }
+        .action-btn.next { background: #3b82f6; }
+        .action-btn:active { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <!-- [1페이지] -->
+    <div id="page1" class="page active">
+        <h1 class="header-title">Re-Walk: 전대 상권 활성화</h1>
+        
+        <div class="img-container">
+            <img src="리워크.png" alt="리워크 메인 이미지" onerror="this.src='https://via.placeholder.com/450x200?text=Re-Walk+Image'">
+            <!-- 문구 추가 완료 -->
+            <p class="quiz-text">여기가 어디일까요? 🤔</p>
+        </div>
+
+        <div class="slider-wrapper">
+            <div class="slider-title">📍 후문 상권 둘러보기</div>
+            <div class="slider-container" id="slider-humun">
+                <button class="nav-btn prev-btn" onclick="moveSlide('humun', -1)">&#10094;</button>
+                <img class="slide-img active" src="후문1.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=후문+사진+1'">
+                <img class="slide-img" src="후문2.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=후문+사진+2'">
+                <img class="slide-img" src="후문3.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=후문+사진+3'">
+                <button class="nav-btn next-btn" onclick="moveSlide('humun', 1)">&#10095;</button>
+            </div>
+        </div>
+
+        <div class="slider-wrapper">
+            <div class="slider-title">📍 상대 상권 둘러보기</div>
+            <div class="slider-container" id="slider-sangdae">
+                <button class="nav-btn prev-btn" onclick="moveSlide('sangdae', -1)">&#10094;</button>
+                <img class="slide-img active" src="상대1.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=상대+사진+1'">
+                <img class="slide-img" src="상대2.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=상대+사진+2'">
+                <img class="slide-img" src="상대3.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=상대+사진+3'">
+                <button class="nav-btn next-btn" onclick="moveSlide('sangdae', 1)">&#10095;</button>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="action-btn next" onclick="navigatePage(2)">설문 시작하기</button>
+        </div>
+    </div>
+
+
+    <!-- [2페이지] -->
+    <div id="page2" class="page">
+        <h1 class="header-title">학생들의 상권 이용 경험과 현황</h1>
+
+        <div class="question-box">
+            <p class="question-title">[질문 1] 우리들의 이야기가 가장 많이 묻어있는, 당신의 최애 추억 장소는 어디인가요?</p>
+            <ul class="option-list">
+                <li class="option-item"><input type="radio" name="q1" id="q1-1" value="예대"><label class="option-label" for="q1-1">① 예대</label></li>
+                <li class="option-item"><input type="radio" name="q1" id="q1-2" value="상대"><label class="option-label" for="q1-2">② 상대</label></li>
+                <li class="option-item"><input type="radio" name="q1" id="q1-3" value="후문"><label class="option-label" for="q1-3">③ 후문</label></li>
+                <li class="option-item">
+                    <input type="radio" name="q1" id="q1-4" value="기타">
+                    <label class="option-label" for="q1-4">④ 기타 (직접 입력)</label>
+                    <input type="text" class="text-input" id="q1-etc" placeholder="장소를 직접 입력해 주세요.">
+                </li>
+            </ul>
+        </div>
+
+        <div class="question-box">
+            <p class="question-title">[질문 2] 그곳에는 주로 어떤 추억들이 담겨 있나요? (가장 잘 어울리는 키워드를 고르고, 에피소드가 있다면 적어주세요!)</p>
+            <ul class="option-list">
+                <li class="option-item"><input type="radio" name="q2" id="q2-1" value="친구"><label class="option-label" for="q2-1">① 동기, 선후배와 함께한 '친구'와의 추억</label></li>
+                <li class="option-item"><input type="radio" name="q2" id="q2-2" value="연인"><label class="option-label" for="q2-2">② 설레고 풋풋했던 '연인'과의 추억</label></li>
+                <li class="option-item"><input type="radio" name="q2" id="q2-3" value="학업"><label class="option-label" for="q2-3">③ 시험 기간, 팀플로 불태웠던 '학업/열정'의 추억</label></li>
+                <li class="option-item"><input type="radio" name="q2" id="q2-4" value="기타"><label class="option-label" for="q2-4">④ 혼자만의 사색, 혹은 기타 추억</label></li>
+            </ul>
+            <textarea class="textarea-input" placeholder="생각나는 에피소드가 있다면 살짝 들려주세요."></textarea>
+        </div>
+
+        <div class="question-box">
+            <p class="question-title">[질문 3] 그 공간에서 가장 추천하는 메뉴는?</p>
+            <textarea class="textarea-input" placeholder="추천하는 메뉴나 소울 맛집을 서술해 주세요."></textarea>
+        </div>
+
+        <div class="question-box">
+            <p class="question-title">[질문 4] 만약 그 장소에 새로운 공간이 들어선다면, 어떤 곳이 생겨서 우리의 아지트가 되어주면 좋겠나요?</p>
+            <ul class="option-list">
+                <li class="option-item"><input type="radio" name="q4" id="q4-1" value="카페"><label class="option-label" for="q4-1">① 카공이나 수다 떨기 좋은 '감성 카페'</label></li>
+                <li class="option-item"><input type="radio" name="q4" id="q4-2" value="맛집"><label class="option-label" for="q4-2">② 가성비 좋고 든든한 '새로운 맛집'</label></li>
+                <li class="option-item"><input type="radio" name="q4" id="q4-3" value="문화"><label class="option-label" for="q4-3">③ 공강 시간에 편하게 쉴 수 있는 '휴식/문화 공간'</label></li>
+                <li class="option-item">
+                    <input type="radio" name="q4" id="q4-4" value="기타"><label class="option-label" for="q4-4">④ 기타 (직접 입력)</label>
+                    <input type="text" class="text-input" id="q4-etc" placeholder="원하는 공간을 입력해 주세요.">
+                </li>
+            </ul>
+        </div>
+
+        <div class="btn-container">
+            <button class="action-btn" onclick="navigatePage(1)">이전으로</button>
+            <button class="action-btn next" onclick="navigatePage(3)">다음 단계</button>
+        </div>
+    </div>
+
+
+    <!-- [3페이지] -->
+    <div id="page3" class="page">
+        <h1 class="header-title">전대 상권 '꿈의 골목'을 위한 한걸음</h1>
+
+        <div class="report-section">
+            <div class="report-img-box">
+                <img src="보고서.jpg" alt="보고서 이미지" onerror="this.src='https://via.placeholder.com/150x200?text=보고서+사진'">
+            </div>
+            <div class="report-text-box">
+                지자체 <span class="highlight">'지역상권 육성사업'</span> 공모에 직접 도전!<br><br>
+                상권 활성화를 위해 예산 확보 필요!<br><br>
+                <span class="highlight">당신의 소중한 답변이 상권에 빛을!</span>
+            </div>
+        </div>
+
+        <div class="img-container">
+            <img src="꿈의 골목.jpg" alt="꿈의 골목 이미지" onerror="this.src='https://via.placeholder.com/450x250?text=꿈의+골목+사진'">
+        </div>
+
+        <div class="qr-box">
+            <img src="QR.png" alt="QR 이미지" onerror="this.src='https://via.placeholder.com/200x200?text=QR+코드'">
+        </div>
+
+        <div class="btn-container">
+            <button class="action-btn" onclick="navigatePage(2)">이전으로</button>
+            <button class="action-btn next" onclick="alert('제출이 완료되었습니다. 참여해 주셔서 감사합니다!')">제출하기</button>
+        </div>
+    </div>
+
+    <script>
+        // 페이지 전환 스크립트
+        function navigatePage(pageNumber) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById('page' + pageNumber).classList.add('active');
+            window.scrollTo(0, 0); // 페이지 이동 시 최상단 스크롤
+        }
+
+        // 이미지 슬라이더 제어 스크립트 (독립 작동 및 버튼 오작동 버그 수정 완료)
+        const sliders = {
+            humun: { current: 0, total: 3 },
+            sangdae: { current: 0, total: 3 }
+        };
+
+        function moveSlide(type, direction) {
+            const sliderData = sliders[type];
+            const container = document.getElementById(`slider-${type}`);
+            
+            // 컨테이너 안에서 button을 제외하고 오직 img 태그만 추출하도록 수정
+            const images = container.querySelectorAll('img.slide-img');
+            
+            // 인덱스 계산 (왼쪽/오른쪽 무한 순환 루프)
+            sliderData.current += direction;
+            if (sliderData.current < 0) {
+                sliderData.current = sliderData.total - 1;
+            } else if (sliderData.current >= sliderData.total) {
+                sliderData.current = 0;
+            }
+            
+            // 화면 갱신
+            images.forEach((img, idx) => {
+                if (idx === sliderData.current) {
+                    img.classList.add('active');
+                } else {
+                    img.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
