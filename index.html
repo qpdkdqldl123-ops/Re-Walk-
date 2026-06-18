@@ -9,35 +9,35 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif; }
         body { background-color: #f5f7fa; color: #333; line-height: 1.6; padding-bottom: 30px; }
         
-        /* 페이지 구조 */
-        .page { display: none; max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+        /* 페이지 구조 - 모바일에서 사진을 더 크게 보기 위해 좌우 여백을 12px로 축소 */
+        .page { display: none; max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; padding: 20px 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
         .page.active { display: block; }
         
         /* 헤더 & 타이틀 */
         .header-title { font-size: 20px; font-weight: 700; color: #111; text-align: center; margin: 15px 0 25px 0; padding-bottom: 10px; border-bottom: 2px solid #222; }
         
-        /* 이미지 기본 세팅 (깨짐 방지 및 반응형 가로 100% 꽉 차게 변경) */
+        /* 이미지 기본 세팅 (화면 가로폭에 100% 꽉 차게 채움) */
         img { width: 100%; height: auto; display: block; border-radius: 8px; object-fit: cover; }
-        .img-container { margin-bottom: 25px; position: relative; }
+        .img-container { margin-bottom: 25px; position: relative; width: 100%; }
         
         /* 추가된 질문 문구 스타일 */
         .quiz-text { font-size: 16px; font-weight: 600; color: #222; text-align: center; margin-top: 15px; margin-bottom: 15px; }
 
-        /* 슬라이드(캐러셀) 스타일 - 영역을 더 시원하게 확장 */
-        .slider-wrapper { background: #fafafa; border: 1px solid #e1e4e8; border-radius: 12px; padding: 12px; margin-bottom: 25px; }
+        /* 슬라이드(캐러셀) 스타일 - 휴대폰 화면을 꽉 채우도록 박스 확장 */
+        .slider-wrapper { background: #fafafa; border: 1px solid #e1e4e8; border-radius: 12px; padding: 8px; margin-bottom: 25px; width: 100%; }
         .slider-title { font-size: 14px; font-weight: bold; color: #666; margin-bottom: 10px; padding-left: 5px; }
-        .slider-container { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 320px; }
+        .slider-container { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; width: 100%; }
         
-        /* 1페이지 사진 크기를 극대화하기 위해 세로 크기 제약 완전 상향 조정 */
-        .slide-img { display: none; width: 100%; max-height: 450px; border-radius: 6px; }
+        /* 휴대폰 화면에서 사진이 찌그러지거나 잘리지 않고 무조건 최대 크기로 커지도록 설정 */
+        .slide-img { display: none; width: 100%; height: auto; max-height: 600px; border-radius: 6px; }
         .slide-img.active { display: block; }
-        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; -webkit-tap-highlight-color: transparent; }
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #fff; border: none; width: 42px; height: 42px; border-radius: 50%; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; -webkit-tap-highlight-color: transparent; }
         .nav-btn:active { background: rgba(0,0,0,0.8); }
-        .prev-btn { left: 10px; }
-        .next-btn { right: 10px; }
+        .prev-btn { left: 8px; }
+        .next-btn { right: 8px; }
 
         /* 2페이지 설문 조사 스타일 */
-        .question-box { margin-bottom: 25px; background: #fff; }
+        .question-box { margin-bottom: 25px; background: #fff; padding: 0 8px; }
         .question-title { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #222; word-break: keep-all; }
         .option-list { list-style: none; }
         .option-item { margin-bottom: 10px; }
@@ -50,17 +50,17 @@
         .textarea-input { height: 80px; resize: none; }
         .text-input:focus, .textarea-input:focus { border-color: #3b82f6; }
 
-        /* 3페이지 보고서 영역 (모바일 화면에서 가독성과 크기를 높이기 위해 세로 배치로 변경) */
-        .report-section { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; background: #f8f9fa; padding: 15px; border-radius: 8px; }
-        .report-img-box { width: 100%; } /* 사진이 가로 전체를 차지하게 변경 */
+        /* 3페이지 보고서 영역 (휴대폰 가로 꽉 차는 풀와이드 형태) */
+        .report-section { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; background: #f8f9fa; padding: 12px; border-radius: 8px; width: 100%; }
+        .report-img-box { width: 100%; } 
         .report-text-box { font-size: 14px; font-weight: 600; color: #333; line-height: 1.6; word-break: keep-all; text-align: center; padding: 5px 0; }
         .highlight { color: #d97706; font-weight: 700; }
         
-        /* QR 코드 박스 모바일 가로폭에 맞춰 추가 확대 */
-        .qr-box { width: 280px; margin: 0 auto 20px auto; }
+        /* QR 코드 박스도 핸드폰 화면 안에서 눈에 확 띄도록 320px까지 최대화 */
+        .qr-box { width: 100%; max-width: 320px; margin: 0 auto 20px auto; }
 
         /* 하단 고정/이동 버튼 */
-        .btn-container { margin-top: 35px; display: flex; gap: 10px; }
+        .btn-container { margin-top: 35px; display: flex; gap: 10px; padding: 0 8px; }
         .action-btn { flex: 1; background: #222; color: #fff; border: none; padding: 15px; font-size: 15px; font-weight: 600; border-radius: 8px; cursor: pointer; text-align: center; -webkit-tap-highlight-color: transparent; }
         .action-btn.next { background: #3b82f6; }
         .action-btn:active { opacity: 0.8; }
@@ -68,11 +68,12 @@
 </head>
 <body>
 
+    <!-- [1페이지] -->
     <div id="page1" class="page active">
         <h1 class="header-title">Re-Walk: 전대 상권 활성화</h1>
         
         <div class="img-container">
-            <img src="리워크.png" alt="리워크 메인 이미지" onerror="this.src='https://via.placeholder.com/450x300?text=Re-Walk+Main+Image'">
+            <img src="리워크.png" alt="리워크 메인 이미지" onerror="this.src='https://via.placeholder.com/600x400?text=Re-Walk+Main+Image'">
             <p class="quiz-text">여기가 어디일까요? 🤔</p>
         </div>
 
@@ -80,9 +81,9 @@
             <div class="slider-title">📍 후문 상권 둘러보기</div>
             <div class="slider-container" id="slider-humun">
                 <button type="button" class="nav-btn prev-btn" onclick="moveSlide('humun', -1)">&#10094;</button>
-                <img class="slide-img active" src="후문1.jpeg" onerror="this.src='https://via.placeholder.com/450x350?text=후문+사진+1'">
-                <img class="slide-img" src="후문2.jpeg" onerror="this.src='https://via.placeholder.com/450x350?text=후문+사진+2'">
-                <img class="slide-img" src="후문3.jpeg" onerror="this.src='https://via.placeholder.com/450x350?text=후문+사진+3'">
+                <img class="slide-img active" src="후문1.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=후문+사진+1'">
+                <img class="slide-img" src="후문2.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=후문+사진+2'">
+                <img class="slide-img" src="후문3.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=후문+사진+3'">
                 <button type="button" class="nav-btn next-btn" onclick="moveSlide('humun', 1)">&#10095;</button>
             </div>
         </div>
@@ -91,9 +92,9 @@
             <div class="slider-title">📍 상대 상권 둘러보기</div>
             <div class="slider-container" id="slider-sangdae">
                 <button type="button" class="nav-btn prev-btn" onclick="moveSlide('sangdae', -1)">&#10094;</button>
-                <img class="slide-img active" src="상대1.jpeg" onerror="this.src='https://via.placeholder.com/450x350?text=상대+사진+1'">
-                <img class="slide-img" src="상대2.jpeg" onerror="this.src='https://via.placeholder.com/450x350?text=상대+사진+2'">
-                <img class="slide-img" src="상대3.jpeg" onerror="this.src='https://via.placeholder.com/450x350?text=상대+사진+3'">
+                <img class="slide-img active" src="상대1.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=상대+사진+1'">
+                <img class="slide-img" src="상대2.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=상대+사진+2'">
+                <img class="slide-img" src="상대3.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=상대+사진+3'">
                 <button type="button" class="nav-btn next-btn" onclick="moveSlide('sangdae', 1)">&#10095;</button>
             </div>
         </div>
@@ -104,6 +105,7 @@
     </div>
 
 
+    <!-- [2페이지] -->
     <div id="page2" class="page">
         <h1 class="header-title">학생들의 상권 이용 경험과 현황</h1>
 
@@ -157,12 +159,13 @@
     </div>
 
 
+    <!-- [3페이지] -->
     <div id="page3" class="page">
         <h1 class="header-title">전대 상권 '꿈의 골목'을 위한 한걸음</h1>
 
         <div class="report-section">
             <div class="report-img-box">
-                <img src="보고서.jpg" alt="보고서 이미지" onerror="this.src='https://via.placeholder.com/450x320?text=보고서+사진+확대'">
+                <img src="보고서.jpg" alt="보고서 이미지" onerror="this.src='https://via.placeholder.com/600x450?text=보고서+사진+확대'">
             </div>
             <div class="report-text-box">
                 지자체 <span class="highlight">'지역상권 육성사업'</span> 공모에 직접 도전!<br>
@@ -172,11 +175,11 @@
         </div>
 
         <div class="img-container">
-            <img src="꿈의 골목.jpg" alt="꿈의 골목 이미지" onerror="this.src='https://via.placeholder.com/450x350?text=꿈의+골목+사진+확대'">
+            <img src="꿈의 골목.jpg" alt="꿈의 골목 이미지" onerror="this.src='https://via.placeholder.com/600x450?text=꿈의+골목+사진+확대'">
         </div>
 
         <div class="qr-box">
-            <img src="QR.png" alt="QR 이미지" onerror="this.src='https://via.placeholder.com/280x280?text=QR+코드+확대'">
+            <img src="QR.png" alt="QR 이미지" onerror="this.src='https://via.placeholder.com/320x320?text=QR+코드+최대화'">
         </div>
 
         <div class="btn-container">
@@ -186,14 +189,12 @@
     </div>
 
     <script>
-        // 페이지 전환 스크립트
         function navigatePage(pageNumber) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById('page' + pageNumber).classList.add('active');
             window.scrollTo(0, 0);
         }
 
-        // 이미지 슬라이더 제어 스크립트
         const sliders = {
             humun: { current: 0, total: 3 },
             sangdae: { current: 0, total: 3 }
@@ -202,7 +203,6 @@
         function moveSlide(type, direction) {
             const sliderData = sliders[type];
             const container = document.getElementById(`slider-${type}`);
-            
             const images = container.querySelectorAll('img.slide-img');
             
             sliderData.current += direction;
