@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 확대 축소가 가능하도록 viewport 속성 수정 완료 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re-Walk: 전대 상권 활성화 설문조사</title>
     <style>
         /* 모바일 최적화 및 기본 스타일 */
@@ -26,8 +27,9 @@
         /* 슬라이드(캐러셀) 스타일 */
         .slider-wrapper { background: #fafafa; border: 1px solid #e1e4e8; border-radius: 12px; padding: 10px; margin-bottom: 20px; }
         .slider-title { font-size: 14px; font-weight: bold; color: #666; margin-bottom: 8px; padding-left: 5px; }
-        .slider-container { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 200px; }
-        .slide-img { display: none; width: 100%; max-height: 250px; border-radius: 6px; }
+        .slider-container { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 280px; }
+        /* 1페이지 사진 크기를 키우기 위해 max-height 제한 상향 조정 */
+        .slide-img { display: none; width: 100%; max-height: 400px; border-radius: 6px; }
         .slide-img.active { display: block; }
         .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; -webkit-tap-highlight-color: transparent; }
         .nav-btn:active { background: rgba(0,0,0,0.8); }
@@ -49,12 +51,14 @@
         .textarea-input { height: 80px; resize: none; }
         .text-input:focus, .textarea-input:focus { border-color: #3b82f6; }
 
-        /* 3페이지 보고서 영역 (반응형 레이아웃) */
+        /* 3페이지 보고서 영역 (반응형 레이아웃 사진 확대) */
         .report-section { display: flex; gap: 15px; align-items: center; margin-bottom: 25px; background: #f8f9fa; padding: 12px; border-radius: 8px; }
-        .report-img-box { flex: 1; }
+        /* 보고서 이미지 비율을 키움 */
+        .report-img-box { flex: 1.4; }
         .report-text-box { flex: 1.2; font-size: 13px; font-weight: 600; color: #333; line-height: 1.5; word-break: keep-all; }
         .highlight { color: #d97706; font-weight: 700; }
-        .qr-box { width: 180px; margin: 0 auto 20px auto; }
+        /* QR 코드 박스 크기 확대 */
+        .qr-box { width: 240px; margin: 0 auto 20px auto; }
 
         /* 하단 고정/이동 버튼 */
         .btn-container { margin-top: 30px; display: flex; gap: 10px; }
@@ -70,7 +74,7 @@
         <h1 class="header-title">Re-Walk: 전대 상권 활성화</h1>
         
         <div class="img-container">
-            <img src="리워크.png" alt="리워크 메인 이미지" onerror="this.src='https://via.placeholder.com/450x200?text=Re-Walk+Image'">
+            <img src="리워크.png" alt="리워크 메인 이미지" onerror="this.src='https://via.placeholder.com/450x250?text=Re-Walk+Image'">
             <!-- 문구 추가 완료 -->
             <p class="quiz-text">여기가 어디일까요? 🤔</p>
         </div>
@@ -78,22 +82,22 @@
         <div class="slider-wrapper">
             <div class="slider-title">📍 후문 상권 둘러보기</div>
             <div class="slider-container" id="slider-humun">
-                <button class="nav-btn prev-btn" onclick="moveSlide('humun', -1)">&#10094;</button>
-                <img class="slide-img active" src="후문1.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=후문+사진+1'">
-                <img class="slide-img" src="후문2.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=후문+사진+2'">
-                <img class="slide-img" src="후문3.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=후문+사진+3'">
-                <button class="nav-btn next-btn" onclick="moveSlide('humun', 1)">&#10095;</button>
+                <button type="button" class="nav-btn prev-btn" onclick="moveSlide('humun', -1)">&#10094;</button>
+                <img class="slide-img active" src="후문1.jpeg" onerror="this.src='https://via.placeholder.com/450x300?text=후문+사진+1'">
+                <img class="slide-img" src="후문2.jpeg" onerror="this.src='https://via.placeholder.com/450x300?text=후문+사진+2'">
+                <img class="slide-img" src="후문3.jpeg" onerror="this.src='https://via.placeholder.com/450x300?text=후문+사진+3'">
+                <button type="button" class="nav-btn next-btn" onclick="moveSlide('humun', 1)">&#10095;</button>
             </div>
         </div>
 
         <div class="slider-wrapper">
             <div class="slider-title">📍 상대 상권 둘러보기</div>
             <div class="slider-container" id="slider-sangdae">
-                <button class="nav-btn prev-btn" onclick="moveSlide('sangdae', -1)">&#10094;</button>
-                <img class="slide-img active" src="상대1.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=상대+사진+1'">
-                <img class="slide-img" src="상대2.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=상대+사진+2'">
-                <img class="slide-img" src="상대3.jpeg" onerror="this.src='https://via.placeholder.com/450x250?text=상대+사진+3'">
-                <button class="nav-btn next-btn" onclick="moveSlide('sangdae', 1)">&#10095;</button>
+                <button type="button" class="nav-btn prev-btn" onclick="moveSlide('sangdae', -1)">&#10094;</button>
+                <img class="slide-img active" src="상대1.jpeg" onerror="this.src='https://via.placeholder.com/450x300?text=상대+사진+1'">
+                <img class="slide-img" src="상대2.jpeg" onerror="this.src='https://via.placeholder.com/450x300?text=상대+사진+2'">
+                <img class="slide-img" src="상대3.jpeg" onerror="this.src='https://via.placeholder.com/450x300?text=상대+사진+3'">
+                <button type="button" class="nav-btn next-btn" onclick="moveSlide('sangdae', 1)">&#10095;</button>
             </div>
         </div>
 
@@ -163,7 +167,7 @@
 
         <div class="report-section">
             <div class="report-img-box">
-                <img src="보고서.jpg" alt="보고서 이미지" onerror="this.src='https://via.placeholder.com/150x200?text=보고서+사진'">
+                <img src="보고서.jpg" alt="보고서 이미지" onerror="this.src='https://via.placeholder.com/180x240?text=보고서+사진'">
             </div>
             <div class="report-text-box">
                 지자체 <span class="highlight">'지역상권 육성사업'</span> 공모에 직접 도전!<br><br>
@@ -173,11 +177,11 @@
         </div>
 
         <div class="img-container">
-            <img src="꿈의 골목.jpg" alt="꿈의 골목 이미지" onerror="this.src='https://via.placeholder.com/450x250?text=꿈의+골목+사진'">
+            <img src="꿈의 골목.jpg" alt="꿈의 골목 이미지" onerror="this.src='https://via.placeholder.com/450x300?text=꿈의+골목+사진'">
         </div>
 
         <div class="qr-box">
-            <img src="QR.png" alt="QR 이미지" onerror="this.src='https://via.placeholder.com/200x200?text=QR+코드'">
+            <img src="QR.png" alt="QR 이미지" onerror="this.src='https://via.placeholder.com/240x240?text=QR+코드'">
         </div>
 
         <div class="btn-container">
@@ -194,7 +198,7 @@
             window.scrollTo(0, 0); // 페이지 이동 시 최상단 스크롤
         }
 
-        // 이미지 슬라이더 제어 스크립트 (독립 작동 및 버튼 오작동 버그 수정 완료)
+        // 이미지 슬라이더 제어 스크립트
         const sliders = {
             humun: { current: 0, total: 3 },
             sangdae: { current: 0, total: 3 }
@@ -204,10 +208,8 @@
             const sliderData = sliders[type];
             const container = document.getElementById(`slider-${type}`);
             
-            // 컨테이너 안에서 button을 제외하고 오직 img 태그만 추출하도록 수정
             const images = container.querySelectorAll('img.slide-img');
             
-            // 인덱스 계산 (왼쪽/오른쪽 무한 순환 루프)
             sliderData.current += direction;
             if (sliderData.current < 0) {
                 sliderData.current = sliderData.total - 1;
@@ -215,7 +217,6 @@
                 sliderData.current = 0;
             }
             
-            // 화면 갱신
             images.forEach((img, idx) => {
                 if (idx === sliderData.current) {
                     img.classList.add('active');
